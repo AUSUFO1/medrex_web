@@ -1,249 +1,224 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { Download, Menu, X, Moon, Sun } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Download, Menu, Moon, Sparkles, Sun, X } from 'lucide-react';
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { useDarkMode } from '@/hooks/useDarkMode';
 
-const navItems = [
-  { name: 'Features',     href: '#features'     },
-  { name: 'How It Works', href: '#how-it-works'  },
-  { name: 'Pricing',      href: '#pricing'       },
-  { name: 'About',        href: '#about'         },
+const rootLinks = [
+  { label: 'Home', href: '#top' },
+  { label: 'Features', href: '#features' },
+  { label: 'How It Works', href: '#how-it-works' },
+  { label: 'AI Demo', href: '#ai-assistant' },
+  { label: 'Testimonials', href: '#testimonials' },
+  { label: 'Download', href: '#download' },
+];
+
+const pageLinks = [
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'About', href: '/about' },
 ];
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled]         = useState(false);
+  const pathname = usePathname();
+  const { isDark, toggle } = useDarkMode();
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { isDark, toggle }                  = useDarkMode();
+  const isMounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 16);
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isMobileMenuOpen]);
+
+  const links = useMemo(
+    () =>
+      rootLinks.map((link) => ({
+        ...link,
+        href: pathname === '/' ? link.href : `/${link.href}`,
+      })),
+    [pathname]
+  );
 
   return (
     <>
-      <motion.nav
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500
-          ${isScrolled
-            ? 'bg-[var(--color-background)]/90 backdrop-blur-2xl border-b border-[var(--color-border)]'
-            : 'bg-[var(--color-background)]/60 backdrop-blur-md border-b border-transparent'
+      <header className="fixed inset-x-0 top-0 z-[70] px-2 pt-2.5 sm:px-6 sm:pt-3">
+        <div
+          className={`container rounded-[1.6rem] border border-[var(--color-border)] bg-[color:color-mix(in_srgb,var(--color-surface)_94%,transparent)] shadow-[var(--shadow-md)] transition-all duration-300 sm:backdrop-blur-[24px] ${
+            isScrolled ? 'border-[var(--color-border-strong)] shadow-[var(--shadow-lg)]' : ''
           }`}
-      >
-        <div className="max-w-[1280px] mx-auto px-6 h-[56px] flex items-center justify-between">
+        >
+          <div className="flex h-[68px] items-center justify-between gap-3 px-3 sm:h-[74px] sm:px-6">
+            <Link href="/" className="flex min-w-0 items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-sm)] sm:h-11 sm:w-11">
+                <Image
+                  src="/images/medrex_logo.png"
+                  alt="MedRex"
+                  width={32}
+                  height={32}
+                  priority
+                  className="h-7 w-7 object-contain sm:h-8 sm:w-8"
+                />
+              </div>
+              <div className="min-w-0">
+                <p className="truncate text-base font-semibold text-[var(--color-text)] sm:text-lg">MedRex</p>
+                <p className="truncate text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-soft)] sm:text-xs sm:tracking-[0.22em]">Digital care OS</p>
+              </div>
+            </Link>
 
-          {/* Logo */}
-          <motion.a
-            href="/"
-            whileHover={{ opacity: 0.85 }}
-            transition={{ duration: 0.15 }}
-            className="flex items-center select-none"
-            aria-label="MedRex home"
-          >
-            <img
-              src="/images/medrex_logo.png"
-              alt="MedRex"
-              className="w-[38px] h-[38px] object-contain"
-            />
-          </motion.a>
+            <nav className="hidden items-center gap-1 lg:flex">
+              {links.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="rounded-full px-4 py-2 text-sm font-medium text-[var(--color-text-soft)] transition hover:bg-[var(--color-accent)] hover:text-[var(--color-text)]"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              {pageLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                    pathname === link.href
+                      ? 'bg-[var(--color-accent)] text-[var(--color-text)]'
+                      : 'text-[var(--color-text-soft)] hover:bg-[var(--color-accent)] hover:text-[var(--color-text)]'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                whileHover={{ backgroundColor: 'var(--color-accent)' }}
-                transition={{ duration: 0.15 }}
-                className="px-4 py-2 rounded-[var(--radius-md)] text-[13px] font-medium
-                  text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]
-                  transition-colors duration-200"
+            <div className="hidden items-center gap-3 md:flex">
+              <button
+                type="button"
+                onClick={toggle}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] transition hover:border-[var(--color-border-strong)] hover:-translate-y-0.5"
+                aria-label="Toggle dark mode"
               >
-                {item.name}
-              </motion.a>
-            ))}
-          </div>
+                {isMounted && isDark ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+              <Link
+                href={pathname === '/' ? '#download' : '/#download'}
+                className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white teal-purple shadow-[var(--shadow-sm)] transition hover:bg-[var(--color-primary-dark)]"
+              >
+                <Download size={16} />
+                Download App
+              </Link>
+            </div>
 
-          {/* Desktop Right Actions */}
-          <div className="hidden md:flex items-center gap-3">
-
-            {/* Dark Mode Toggle */}
-            <motion.button
-              onClick={toggle}
-              whileHover={{ backgroundColor: 'var(--color-accent)' }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.15 }}
-              className="w-9 h-9 flex items-center justify-center rounded-[var(--radius-md)]
-                text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]
-                transition-colors duration-200"
-              aria-label="Toggle dark mode"
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen((current) => !current)}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] md:hidden"
+              aria-label="Toggle mobile menu"
             >
-              <AnimatePresence mode="wait" initial={false}>
-                {isDark ? (
-                  <motion.div
-                    key="sun"
-                    initial={{ opacity: 0, rotate: -90 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: 90 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Sun size={16} strokeWidth={2} />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="moon"
-                    initial={{ opacity: 0, rotate: 90 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: -90 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Moon size={16} strokeWidth={2} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
-
-            {/* Download CTA */}
-            <motion.a
-              href="#download"
-              whileHover={{ opacity: 0.9, scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ duration: 0.15 }}
-              className="flex items-center gap-2 bg-[var(--color-primary)] text-white
-                text-[13px] font-medium px-4 py-2 rounded-[var(--radius-full)]
-                shadow-[var(--shadow-sm)] transition-all duration-200"
-            >
-              <Download size={13} strokeWidth={2} />
-              <span>Download App</span>
-            </motion.a>
+              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
           </div>
-
-          {/* Mobile Hamburger */}
-          <motion.button
-            whileTap={{ scale: 0.92 }}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden flex items-center justify-center w-9 h-9
-              text-[var(--color-text-primary)] rounded-[var(--radius-md)]"
-            aria-label="Toggle menu"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {isMobileMenuOpen ? (
-                <motion.div
-                  key="close"
-                  initial={{ opacity: 0, rotate: -90 }}
-                  animate={{ opacity: 1, rotate: 0 }}
-                  exit={{ opacity: 0, rotate: 90 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <X size={20} strokeWidth={1.5} />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ opacity: 0, rotate: 90 }}
-                  animate={{ opacity: 1, rotate: 0 }}
-                  exit={{ opacity: 0, rotate: -90 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <Menu size={20} strokeWidth={1.5} />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.button>
-
         </div>
-      </motion.nav>
+      </header>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            key="mobile-menu"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-            className="fixed inset-0 top-[56px] z-40 bg-[var(--color-background)]/97
-              backdrop-blur-2xl md:hidden"
-          >
-            <nav className="flex flex-col px-6 pt-6 pb-10 h-full">
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-[90] overflow-y-auto bg-[var(--color-surface)] md:hidden">
+          <div className="container flex min-h-screen flex-col py-4">
+            <div className="flex items-center justify-between rounded-[1.6rem] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-4 shadow-[var(--shadow-sm)]">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--color-surface-muted)]">
+                  <Image
+                    src="/images/medrex_logo.png"
+                    alt="MedRex"
+                    width={28}
+                    height={28}
+                    className="h-7 w-7 object-contain"
+                  />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-[var(--color-text)]">MedRex Menu</p>
+                  <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-text-soft)]">Navigation</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)]"
+                aria-label="Close mobile menu"
+              >
+                <X size={18} />
+              </button>
+            </div>
 
-              {/* Nav Links */}
-              <div className="flex flex-col border-t border-[var(--color-border)]">
-                {navItems.map((item, i) => (
-                  <motion.a
-                    key={item.name}
-                    href={item.href}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.06, duration: 0.2 }}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-between py-4
-                      border-b border-[var(--color-border)]
-                      text-[17px] font-normal text-[var(--color-text-primary)]"
-                  >
-                    <span>{item.name}</span>
-                    <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
-                      <path
-                        d="M1 1l5 5-5 5"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        opacity="0.35"
-                      />
-                    </svg>
-                  </motion.a>
-                ))}
+            <div className="mt-4 flex-1 rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-md)]">
+              <div className="flex items-start gap-2 rounded-[1.25rem] bg-[var(--color-accent)] px-4 py-3 text-sm font-medium text-[var(--color-text)]">
+                <Sparkles size={16} className="mt-0.5 shrink-0 text-[var(--color-primary)]" />
+                <span>Navigate MedRex quickly on mobile.</span>
               </div>
 
-              {/* Mobile Dark Mode Toggle */}
-              <motion.button
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25, duration: 0.2 }}
-                onClick={toggle}
-                className="mt-6 flex items-center gap-3 px-4 py-3
-                  rounded-[var(--radius-md)] border border-[var(--color-border)]
-                  text-[15px] font-medium text-[var(--color-text-primary)]"
-              >
-                {isDark ? <Sun size={18} strokeWidth={2} /> : <Moon size={18} strokeWidth={2} />}
-                {isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-              </motion.button>
+              <nav className="mt-5 flex flex-col gap-2">
+                {links.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex min-h-14 items-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-4 py-4 text-base font-medium text-[var(--color-text)] active:bg-[var(--color-accent)]"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+                {pageLinks.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex min-h-14 items-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-4 py-4 text-base font-medium text-[var(--color-text)] active:bg-[var(--color-accent)]"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
 
-              {/* Mobile Download CTA */}
-              <motion.a
-                href="#download"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.22 }}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-4 flex items-center justify-center gap-2 w-full
-                  bg-[var(--color-primary)] text-white text-[15px] font-medium
-                  py-3.5 rounded-[var(--radius-lg)]"
-              >
-                <Download size={16} strokeWidth={2} />
-                Download App
-              </motion.a>
-
-              <p className="mt-auto text-[12px] text-[var(--color-text-muted)] text-center">
-                Available on App Store & Google Play
-              </p>
-
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <div className="mt-5 grid gap-3">
+                <button
+                  type="button"
+                  onClick={toggle}
+                  className="flex min-h-12 items-center justify-center gap-2 rounded-full border border-[var(--color-border)] px-4 py-3 text-sm font-semibold text-[var(--color-text)]"
+                >
+                  {isMounted && isDark ? <Sun size={16} /> : <Moon size={16} />}
+                  {isMounted && isDark ? 'Light mode' : 'Dark mode'}
+                </button>
+                <Link
+                  href={pathname === '/' ? '#download' : '/#download'}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold text-white teal-purple"
+                >
+                  <Download size={16} />
+                  Download App
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

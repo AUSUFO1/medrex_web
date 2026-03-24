@@ -1,31 +1,27 @@
 import { useEffect, useState } from 'react';
 
+const STORAGE_KEY = 'medrex-theme';
+
+function getStoredTheme() {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  return localStorage.getItem(STORAGE_KEY) === 'dark';
+}
+
 export function useDarkMode() {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(getStoredTheme);
 
   useEffect(() => {
-    const saved = localStorage.getItem('medrex-theme');
-    if (saved === 'dark') {
-      setIsDark(true);
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
+    const root = document.documentElement;
 
-  const toggle = () => {
-    setIsDark((prev) => {
-      const next = !prev;
+    root.classList.toggle('dark', isDark);
+    localStorage.setItem(STORAGE_KEY, isDark ? 'dark' : 'light');
+  }, [isDark]);
 
-      if (next) {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('medrex-theme', 'dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('medrex-theme', 'light');
-      }
-
-      return next;
-    });
+  return {
+    isDark,
+    toggle: () => setIsDark((current) => !current),
   };
-
-  return { isDark, toggle };
 }

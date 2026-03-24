@@ -1,28 +1,33 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Inter, Manrope } from 'next/font/google';
+import './globals.css';
 
 const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+});
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  variable: '--font-heading',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: "MedRex — Your Complete Health Companion",
-  description: "MedRex is a comprehensive health platform offering telemedicine, medical records management, AI assistance, mood tracking, reminders, and secure payments.",
-  keywords: ["health", "telemedicine", "medical records", "AI health assistant", "MedRex"],
-  authors: [{ name: "MedRex" }],
+  title: 'MedRex | Your Complete Health Companion',
+  description:
+    'MedRex brings consultations, records, AI support, reminders, mood tracking, and secure payments into one trusted health platform.',
+  keywords: ['MedRex', 'telemedicine', 'medical records', 'AI health assistant', 'health app'],
   openGraph: {
-    title: "MedRex — Your Complete Health Companion",
-    description: "Connect with doctors, manage records, and track your health all in one place.",
-    type: "website",
-    locale: "en_US",
+    title: 'MedRex | Your Complete Health Companion',
+    description: 'Care, records, and AI guidance in one calm, modern health experience.',
+    type: 'website',
   },
   twitter: {
-    card: "summary_large_image",
-    title: "MedRex — Your Complete Health Companion",
-    description: "Connect with doctors, manage records, and track your health all in one place.",
+    card: 'summary_large_image',
+    title: 'MedRex | Your Complete Health Companion',
+    description: 'Care, records, and AI guidance in one calm, modern health experience.',
   },
 };
 
@@ -32,10 +37,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full`}>
-      <body className="min-h-full flex flex-col antialiased">
-        {children}
-      </body>
+    <html lang="en" className={`${inter.variable} ${manrope.variable}`} suppressHydrationWarning>
+      <body>{children}</body>
     </html>
   );
 }
