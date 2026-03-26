@@ -1,13 +1,23 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Activity, BellRing, BrainCircuit, CalendarClock, CreditCard, FileText, HeartPulse, ShieldCheck, Stethoscope } from 'lucide-react';
+import {
+  ActivityIcon,
+  BellRingingIcon,
+  BrainIcon,
+  CalendarDotsIcon,
+  CreditCardIcon,
+  FileTextIcon,
+  HeartbeatIcon,
+  ShieldCheckIcon,
+  StethoscopeIcon,
+} from '@phosphor-icons/react/dist/ssr';
 
 export function AppBadge({ label, caption }: { label: string; caption: string }) {
   return (
     <div className="flex w-full min-w-0 items-center gap-3 rounded-2xl border border-white/10 bg-slate-950/78 px-4 py-3 text-white shadow-[var(--shadow-sm)] sm:w-auto sm:min-w-[180px]">
       <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/10">
-        <Activity size={18} />
+        <ActivityIcon size={18} />
       </div>
       <div className="min-w-0">
         <p className="truncate text-[11px] uppercase tracking-[0.16em] text-white/55">{caption}</p>
@@ -48,10 +58,10 @@ export function PhoneMockup() {
 
             <div className="mt-5 grid grid-cols-2 gap-3">
               {[
-                { label: 'Doctor', value: 'Live consult', icon: Stethoscope },
-                { label: 'Records', value: '3 updated', icon: FileText },
-                { label: 'Reminders', value: '2 today', icon: BellRing },
-                { label: 'Payments', value: 'Secure', icon: CreditCard },
+                { label: 'Doctor', value: 'Live consult', icon: StethoscopeIcon },
+                { label: 'Records', value: '3 updated', icon: FileTextIcon },
+                { label: 'Reminders', value: '2 today', icon: BellRingingIcon },
+                { label: 'Payments', value: 'Secure', icon: CreditCardIcon },
               ].map((item) => (
                 <div key={item.label} className="rounded-2xl border border-white/8 bg-white/6 p-3">
                   <item.icon size={16} className="text-[var(--color-primary)]" />
@@ -68,7 +78,7 @@ export function PhoneMockup() {
                 <p className="text-sm font-semibold">AI Care Summary</p>
                 <p className="mt-1 text-xs text-white/55">Your latest consultation, simplified.</p>
               </div>
-              <BrainCircuit size={18} className="text-[var(--color-secondary)]" />
+              <BrainIcon size={18} className="text-[var(--color-secondary)]" />
             </div>
             <div className="mt-4 space-y-3 text-sm text-white/70">
               <p className="rounded-2xl bg-white/6 px-3 py-2">Hydration improving this week</p>
@@ -115,7 +125,7 @@ export function DashboardMockup({ title, caption, reverse = false }: { title: st
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <div className="rounded-[1.5rem] bg-[var(--color-background)] p-4">
             <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-text)]">
-              <ShieldCheck size={16} className="text-[var(--color-primary)]" />
+              <ShieldCheckIcon size={16} className="text-[var(--color-primary)]" />
               Secure access
             </div>
             <div className="mt-4 space-y-3">
@@ -142,9 +152,9 @@ export function DashboardMockup({ title, caption, reverse = false }: { title: st
 
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
           {[
-            { icon: FileText, title: 'Records', value: 'Unified' },
-            { icon: CalendarClock, title: 'Visits', value: 'Scheduled' },
-            { icon: HeartPulse, title: 'Mood', value: 'Tracked' },
+            { icon: FileTextIcon, title: 'Records', value: 'Unified' },
+            { icon: CalendarDotsIcon, title: 'Visits', value: 'Scheduled' },
+            { icon: HeartbeatIcon, title: 'Mood', value: 'Tracked' },
           ].map((item) => (
             <div key={item.title} className="rounded-[1.35rem] border border-[var(--color-border)] bg-[var(--color-background)] p-4">
               <item.icon size={16} className="text-[var(--color-secondary)]" />

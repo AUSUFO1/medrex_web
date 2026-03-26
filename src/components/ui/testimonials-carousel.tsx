@@ -1,8 +1,8 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { useState } from 'react';
+import { CaretLeftIcon, CaretRightIcon, StarIcon } from '@phosphor-icons/react/dist/ssr';
 
 type Testimonial = {
   name: string;
@@ -33,7 +33,7 @@ export function TestimonialsCarousel({ items }: { items: Testimonial[] }) {
             className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] transition hover:border-[var(--color-border-strong)] hover:-translate-y-0.5"
             aria-label="Previous testimonial"
           >
-            <ChevronLeft size={18} />
+            <CaretLeftIcon size={18} />
           </button>
           <button
             type="button"
@@ -41,7 +41,7 @@ export function TestimonialsCarousel({ items }: { items: Testimonial[] }) {
             className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] transition hover:border-[var(--color-border-strong)] hover:-translate-y-0.5"
             aria-label="Next testimonial"
           >
-            <ChevronRight size={18} />
+            <CaretRightIcon size={18} />
           </button>
         </div>
       </div>
@@ -59,7 +59,7 @@ export function TestimonialsCarousel({ items }: { items: Testimonial[] }) {
             <div className="rounded-[1.5rem] bg-[var(--color-background)] p-5 sm:rounded-[1.75rem] sm:p-8">
               <div className="flex gap-1 text-amber-400">
                 {Array.from({ length: 5 }).map((_, starIndex) => (
-                  <Star key={starIndex} size={18} fill="currentColor" />
+                  <StarIcon key={starIndex} size={18} weight="fill" />
                 ))}
               </div>
               <p className="mt-6 text-lg leading-8 text-[var(--color-text)] sm:text-2xl">

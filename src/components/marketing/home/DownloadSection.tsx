@@ -3,6 +3,7 @@
 import { AppStoreLogoIcon, GooglePlayLogoIcon } from '@phosphor-icons/react/dist/ssr';
 import StoreBadge from './StoreBadge';
 
+
 export default function DownloadSection() {
   return (
     <section id="download" className="section">
