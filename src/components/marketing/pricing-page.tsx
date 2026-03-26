@@ -1,49 +1,36 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, BadgeCheck, Building2, CreditCard, ShieldCheck, Sparkles } from 'lucide-react';
+import { ArrowRightIcon, CheckCircleIcon, CreditCardIcon, ShieldCheckIcon, UsersThreeIcon } from '@phosphor-icons/react/dist/ssr';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
-import { Reveal } from '@/components/ui/reveal';
-import { QRPlaceholder } from './mockups';
+import { TestimonialsSection } from '@/components/marketing/sections/TestimonialsSection';
+import { FAQSection } from '@/components/marketing/sections/FAQSection';
+import {
+  pricingUserTestimonials,
+  pricingProfessionalTestimonials,
+  pricingFAQs,
+} from '@/components/marketing/content-data';
 
 const plans = [
   {
-    name: 'Free',
-    price: '$0',
-    cadence: '/month',
-    copy: 'A gentle starting point for individuals.',
-    features: ['Personal dashboard', 'Basic health record vault', 'Appointment reminders', 'Single user access'],
+    name: 'Starter',
+    price: 'Free',
+    description: 'For individual patients beginning their digital care journey.',
+    features: ['Profile and records timeline', 'Basic reminders', 'Mobile-first dashboard'],
   },
   {
     name: 'Pro',
     price: '$12',
-    cadence: '/month',
-    copy: 'For active patients and families who want the full MedRex layer.',
-    features: ['Unlimited records', 'AI summaries', 'Priority telemedicine', 'Caregiver sharing', 'Advanced reminder logic'],
+    description: 'For active patients and families using MedRex daily.',
+    features: ['AI assistant', 'Unlimited records', 'Priority support', 'Advanced care flows'],
     featured: true,
   },
   {
     name: 'Enterprise',
     price: 'Custom',
-    cadence: '',
-    copy: 'For providers, clinics, employers, and digital health programs.',
-    features: ['Admin console', 'Organization billing', 'Paystack-ready collections', 'Onboarding support', 'Custom agreements'],
-  },
-];
-
-const faqs = [
-  {
-    title: 'Can MedRex billing connect to Paystack?',
-    copy: 'Yes. This page is prepared for a Paystack-backed flow. The current buttons are placeholder CTAs until your real checkout integration is connected.',
-  },
-  {
-    title: 'Can I start on Free and upgrade later?',
-    copy: 'Yes. The pricing system is designed for progressive upgrade paths from individual use to premium care coordination.',
-  },
-  {
-    title: 'What does Enterprise include?',
-    copy: 'Shared dashboards, admin controls, pricing support, onboarding guidance, and custom care or payment workflows.',
+    description: 'For clinics, partner programs, insurers, and modern care teams.',
+    features: ['Team access', 'Rollout support', 'Billing and payments', 'Custom onboarding'],
   },
 ];
 
@@ -54,133 +41,75 @@ export default function PricingPage() {
       <main className="page-main">
         <section className="section">
           <div className="container">
-            <Reveal>
-              <span className="eyebrow">Pricing</span>
-              <div className="mt-8 grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-                <div>
-                  <h1 className="text-[clamp(2.45rem,10vw,5.6rem)] font-semibold leading-[0.95]">
-                    Pricing that scales from one patient to an <span className="text-gradient">entire care network.</span>
-                  </h1>
-                  <p className="mt-6 max-w-xl text-base leading-8 sm:text-lg">
-                    Built for a simple consumer upgrade path today and a Paystack-backed billing rollout when you are ready to connect your real payment flow.
-                  </p>
-                </div>
-                <div className="surface-panel rounded-[2.2rem] p-6">
-                  <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-primary)]">Billing setup</p>
-                  <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                    <div className="rounded-[1.5rem] bg-[var(--color-background)] p-5">
-                      <CreditCard size={18} className="text-[var(--color-primary)]" />
-                      <p className="mt-4 text-lg font-semibold text-[var(--color-text)]">Paystack ready</p>
-                      <p className="mt-2 text-sm leading-7">Prepared for checkout links, subscriptions, and payment references.</p>
-                    </div>
-                    <div className="rounded-[1.5rem] bg-[var(--color-background)] p-5">
-                      <ShieldCheck size={18} className="text-[var(--color-secondary)]" />
-                      <p className="mt-4 text-lg font-semibold text-[var(--color-text)]">Role-based access</p>
-                      <p className="mt-2 text-sm leading-7">Supports patient, family, clinic, and enterprise billing visibility.</p>
-                    </div>
-                  </div>
-                </div>
+            <div className="grid-dots overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[#050506] p-6 text-white shadow-[var(--shadow-md)] sm:p-10">
+              <div className="relative z-10 max-w-4xl">
+                <div className="eyebrow border-white/10 bg-white/5 text-white/70">Pricing</div>
+                <h1 className="mt-8 text-[clamp(3rem,10vw,6rem)] font-medium leading-[0.94] tracking-[-0.07em]">
+                  Flexible plans for individual care and enterprise scale.
+                </h1>
+                <p className="mt-6 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">
+                  Keep the interface premium and the pricing clear. MedRex is ready for consumer launch paths and future health-tech partnerships.
+                </p>
               </div>
-            </Reveal>
+            </div>
           </div>
         </section>
 
         <section className="section">
           <div className="container">
-            <div className="grid gap-5 xl:grid-cols-3">
-              {plans.map((plan, index) => (
-                <Reveal key={plan.name} delay={index * 0.05}>
-                  <div className={`h-full rounded-[2.2rem] border p-6 ${plan.featured ? 'border-[var(--color-primary)] bg-[var(--color-surface)] shadow-[var(--shadow-lg)]' : 'surface-panel'}`}>
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <p className={`text-sm uppercase tracking-[0.22em] ${plan.featured ? 'text-[var(--color-primary)]' : 'text-[var(--color-text-soft)]'}`}>{plan.name}</p>
-                          <p className="mt-4 text-4xl font-semibold sm:text-5xl">{plan.price}</p>
-                          <p className="mt-2 text-sm">{plan.cadence}</p>
-                        </div>
-                        {plan.featured && (
-                          <div className="rounded-full bg-[var(--color-accent)] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--color-primary)] sm:text-xs sm:tracking-[0.18em]">Recommended</div>
-                        )}
-                      </div>
-                      <p className="mt-5 text-sm leading-7">{plan.copy}</p>
-                      <div className="mt-8 space-y-3">
-                        {plan.features.map((feature) => (
-                          <div key={feature} className="flex items-center gap-3 rounded-[1.3rem] bg-[var(--color-background)] px-4 py-3 text-sm">
-                            <BadgeCheck size={16} className="text-[var(--color-primary)]" />
-                            <span>{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <Link
-                        href="/#download"
-                        className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition ${
-                          plan.featured ? 'bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-dark)]' : 'border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)]'
-                        }`}
-                      >
-                        Get Started
-                        <ArrowRight size={16} />
-                      </Link>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="enterprise" className="section">
-          <div className="container">
-            <Reveal>
-              <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-                <div className="surface-panel rounded-[2.4rem] p-6 lg:p-10">
-                  <span className="eyebrow">
-                    <Building2 size={14} className="text-[var(--color-primary)]" />
-                    Enterprise rollouts
-                  </span>
-                  <h2 className="mt-6 text-3xl font-semibold sm:text-4xl">Launch a premium care experience for your organization.</h2>
-                  <p className="mt-5 max-w-2xl text-base leading-8">
-                    Use MedRex for provider groups, insurer wellness programs, clinics, or digital health initiatives that need clean patient experiences and organized operations.
-                  </p>
-                  <div className="mt-8 grid gap-4 md:grid-cols-3">
-                    {[
-                      'Custom onboarding',
-                      'Shared care dashboards',
-                      'Paystack-enabled payment flows',
-                    ].map((item) => (
-                      <div key={item} className="rounded-[1.5rem] bg-[var(--color-background)] p-5 text-sm font-medium text-[var(--color-text)]">
-                        {item}
+            <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
+              {plans.map((plan) => (
+                <div
+                  key={plan.name}
+                  className={`rounded-[1.8rem] border p-6 shadow-[var(--shadow-sm)] sm:p-7 ${plan.featured ? 'border-[var(--brand)] bg-[var(--brand-soft)]' : 'border-[var(--line)] bg-[var(--panel-strong)]'}`}
+                >
+                  <p className="text-sm uppercase tracking-[0.22em] text-[var(--muted)]">{plan.name}</p>
+                  <p className="mt-4 text-5xl font-medium tracking-[-0.05em]">{plan.price}</p>
+                  <p className="mt-4 text-sm leading-7 text-[var(--muted)]">{plan.description}</p>
+                  <div className="mt-8 space-y-3">
+                    {plan.features.map((feature) => (
+                      <div key={feature} className="flex items-center gap-3 rounded-[1.15rem] border border-[var(--line)] bg-[var(--panel)] px-4 py-3 text-sm">
+                        <CheckCircleIcon size={18} weight="fill" className="text-[var(--brand)]" />
+                        <span>{feature}</span>
                       </div>
                     ))}
                   </div>
+                  <Link href="/#download" className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium ${plan.featured ? 'bg-[var(--brand)] text-white' : 'border border-[var(--line-strong)]'}`}>
+                    Get started
+                    <ArrowRightIcon size={16} />
+                  </Link>
                 </div>
-                <div className="justify-self-start lg:justify-self-auto">
-                  <QRPlaceholder />
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
-        <section className="section">
-          <div className="container">
-            <Reveal>
-              <span className="eyebrow">
-                <Sparkles size={14} className="text-[var(--color-primary)]" />
-                Pricing FAQ
-              </span>
-              <h2 className="section-title mt-6 max-w-3xl">A few practical questions before you connect your real checkout.</h2>
-            </Reveal>
-
-            <div className="mt-12 grid gap-5 lg:grid-cols-3">
-              {faqs.map((faq, index) => (
-                <Reveal key={faq.title} delay={index * 0.04}>
-                  <div className="surface-panel h-full rounded-[2rem] p-6">
-                    <h3 className="text-2xl font-semibold">{faq.title}</h3>
-                    <p className="mt-4 text-sm leading-7">{faq.copy}</p>
-                  </div>
-                </Reveal>
               ))}
+            </div>
+            <div className="mt-10 grid gap-6 lg:grid-cols-3 lg:gap-8 xl:mt-16">
+              <div className="surface rounded-[1.7rem] p-6 sm:p-7">
+                <CreditCardIcon size={22} weight="fill" className="text-[var(--brand)]" />
+                <h2 className="mt-6 text-2xl font-medium tracking-[-0.04em]">Payment-ready</h2>
+                <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
+                  The experience is ready to connect to your preferred subscription or payment workflow when launch details are finalized.
+                </p>
+              </div>
+              <div className="surface rounded-[1.7rem] p-6 sm:p-7">
+                <UsersThreeIcon size={22} weight="fill" className="text-[var(--brand)]" />
+                <h2 className="mt-6 text-2xl font-medium tracking-[-0.04em]">For care teams</h2>
+                <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
+                  MedRex can scale beyond individuals into coordinated care programs and multi-user health operations.
+                </p>
+              </div>
+              <div className="surface rounded-[1.7rem] p-6 sm:p-7">
+                <ShieldCheckIcon size={22} weight="fill" className="text-[var(--brand)]" />
+                <h2 className="mt-6 text-2xl font-medium tracking-[-0.04em]">Clear upgrade path</h2>
+                <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
+                  Each tier is designed to feel understandable to users while still supporting future health-tech expansion.
+                </p>
+              </div>
             </div>
           </div>
         </section>
+
+        <TestimonialsSection title="Why Users Choose MedRex" testimonials={pricingUserTestimonials} />
+        <TestimonialsSection title="Healthcare Teams Trust MedRex" testimonials={pricingProfessionalTestimonials} />
+        <FAQSection title="Pricing Questions" faqs={pricingFAQs} />
       </main>
       <Footer />
     </div>

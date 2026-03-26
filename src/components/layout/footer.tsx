@@ -1,120 +1,76 @@
 import Link from 'next/link';
-import { Instagram, Linkedin, Mail, MapPin, Phone, ShieldCheck, Twitter } from 'lucide-react';
+import { AppStoreLogoIcon, ArrowUpRightIcon, GooglePlayLogoIcon, ShieldCheckIcon, SparkleIcon } from '@phosphor-icons/react/dist/ssr';
 
-const productLinks = [
-  { label: 'Telemedicine', href: '/#features' },
-  { label: 'AI Assistant', href: '/#ai-assistant' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Download', href: '/#download' },
-];
-
-const companyLinks = [
-  { label: 'About MedRex', href: '/about' },
-  { label: 'Trust & Privacy', href: '/about#trust' },
-  { label: 'Why MedRex', href: '/about#why-medrex' },
-  { label: 'Enterprise', href: '/pricing#enterprise' },
-];
-
-const legalLinks = [
-  { label: 'Terms', href: '#' },
-  { label: 'Privacy', href: '#' },
-  { label: 'Cookie Notice', href: '#' },
-  { label: 'Security', href: '#' },
+const footerLinks = [
+  { label: 'Privacy Notice', href: '/privacy' },
+  { label: 'Terms of Use', href: '/terms' },
+  { label: 'Third Party Notices', href: '/notices' },
 ];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[var(--color-border)] bg-[color:color-mix(in_srgb,var(--color-surface)_92%,transparent)]">
-      <div className="container py-12 sm:py-16">
-        <div className="grid gap-8 rounded-[1.75rem] border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-md)] sm:rounded-[2rem] sm:p-6 lg:grid-cols-[1.15fr_0.85fr] lg:p-10">
+    <footer className="bg-[var(--background)]">
+      <div className="container py-16 md:py-24">
+        <div className="grid gap-8 rounded-[2rem] bg-[var(--panel-strong)] p-6 shadow-[var(--shadow-sm)] lg:grid-cols-[1.1fr_0.9fr] lg:p-10">
           <div>
-            <span className="eyebrow">Built for modern care journeys</span>
-            <h2 className="mt-6 max-w-xl text-2xl font-semibold sm:text-4xl">
-              Bring records, visits, reminders, and payments into one calm patient experience.
+            <div className="eyebrow">
+              <SparkleIcon size={14} weight="fill" />
+              Future-ready care delivery
+            </div>
+            <h2 className="mt-6 max-w-2xl text-3xl font-medium tracking-[-0.05em] sm:text-4xl">
+              MedRex keeps telemedicine, records, AI support, and payments moving in one clean flow.
             </h2>
-            <p className="mt-4 max-w-2xl text-base leading-8">
-              MedRex helps providers feel organized and helps patients feel supported between appointments.
+            <p className="mt-4 max-w-2xl text-base leading-8 text-[var(--muted)]">
+              Replace the placeholder store links, legal copy, and contact endpoints with your production launch details when you are ready.
             </p>
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-[1.5rem] bg-[var(--color-background)] p-5">
-                <div className="flex items-center gap-3 text-[var(--color-text)]">
-                  <ShieldCheck size={18} className="text-[var(--color-primary)]" />
-                  <span className="font-semibold">Health-grade trust</span>
-                </div>
-                <p className="mt-3 text-sm leading-7">
-                  Secure records, controlled permissions, audit-ready workflows, and privacy-first product thinking.
-                </p>
-              </div>
-              <div className="rounded-[1.5rem] bg-[var(--color-background)] p-5">
-                <div className="flex items-center gap-3 text-[var(--color-text)]">
-                  <MapPin size={18} className="text-[var(--color-secondary)]" />
-                  <span className="font-semibold">Designed for global teams</span>
-                </div>
-                <p className="mt-3 text-sm leading-7">
-                  Ready for care organizations serving distributed patients, mobile-first communities, and remote staff.
-                </p>
-              </div>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="/#download" className="ghost-button">
+                <AppStoreLogoIcon size={18} />
+                App Store
+              </Link>
+              <Link href="/#download" className="ghost-button">
+                <GooglePlayLogoIcon size={18} />
+                Google Play
+              </Link>
             </div>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-text)]">Product</p>
-              <div className="mt-5 flex flex-col gap-3 text-sm">
-                {productLinks.map((link) => (
-                  <Link key={link.label} href={link.href} className="text-[var(--color-text-soft)] transition hover:text-[var(--color-text)]">
-                    {link.label}
-                  </Link>
-                ))}
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="rounded-[1.5rem] bg-[var(--background-subtle)] p-6">
+              <div className="flex items-center gap-2 text-sm font-medium">
+                <ShieldCheckIcon size={18} className="text-[var(--foreground)] dark:text-[var(--brand)]" />
+                Trust layer
               </div>
+              <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
+                MedRex is positioned as a health-tech platform built around secure records, calm UX, and clear patient guidance.
+              </p>
             </div>
-
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-text)]">Company</p>
-              <div className="mt-5 flex flex-col gap-3 text-sm">
-                {companyLinks.map((link) => (
-                  <Link key={link.label} href={link.href} className="text-[var(--color-text-soft)] transition hover:text-[var(--color-text)]">
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-text)]">Legal</p>
-              <div className="mt-5 flex flex-col gap-3 text-sm">
-                {legalLinks.map((link) => (
-                  <Link key={link.label} href={link.href} className="text-[var(--color-text-soft)] transition hover:text-[var(--color-text)]">
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-[1.5rem] bg-[var(--color-background)] p-5">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-text)]">Contact</p>
-              <div className="mt-5 space-y-3 text-sm text-[var(--color-text-soft)]">
-                <p className="flex items-start gap-2"><Mail size={16} className="mt-0.5 shrink-0" /> care@medrex.app</p>
-                <p className="flex items-start gap-2"><Phone size={16} className="mt-0.5 shrink-0" /> +234 800 MED REX</p>
-                <p className="flex items-start gap-2"><MapPin size={16} className="mt-0.5 shrink-0" /> Lagos, London, Toronto</p>
+            <div className="rounded-[1.5rem] bg-[var(--background-subtle)] p-6">
+              <p className="text-sm font-medium">Pages</p>
+              <div className="mt-4 flex flex-col gap-3 text-sm text-[var(--muted)]">
+                <Link href="/" className="inline-flex items-center gap-2 hover:text-[var(--foreground)]">
+                  Home <ArrowUpRightIcon size={14} />
+                </Link>
+                <Link href="/about" className="inline-flex items-center gap-2 hover:text-[var(--foreground)]">
+                  About <ArrowUpRightIcon size={14} />
+                </Link>
+                <Link href="/pricing" className="inline-flex items-center gap-2 hover:text-[var(--foreground)]">
+                  Pricing <ArrowUpRightIcon size={14} />
+                </Link>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col gap-4 border-t border-[var(--color-border)] pt-6 md:flex-row md:items-center md:justify-between">
-          <p className="max-w-2xl text-sm text-[var(--color-text-soft)]">© 2026 MedRex. Placeholder legal links and newsletter flow can be swapped with your real policies and backend.</p>
-          <div className="flex items-center gap-3">
-            <Link href="#" className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text-soft)] transition hover:text-[var(--color-text)]">
-              <Twitter size={16} />
-            </Link>
-            <Link href="#" className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text-soft)] transition hover:text-[var(--color-text)]">
-              <Instagram size={16} />
-            </Link>
-            <Link href="#" className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text-soft)] transition hover:text-[var(--color-text)]">
-              <Linkedin size={16} />
-            </Link>
+        <div className="mt-8 flex flex-col gap-4 text-sm text-[var(--muted)] md:flex-row md:items-center md:justify-between">
+          <p>© 2026 MedRex. Designed for a faster, calmer health future.</p>
+          <div className="flex flex-wrap gap-4">
+            {footerLinks.map((item) => (
+              <Link key={item.label} href={item.href} className="hover:text-[var(--foreground)]">
+                {item.label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

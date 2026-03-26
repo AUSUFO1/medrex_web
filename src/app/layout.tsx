@@ -1,34 +1,26 @@
-import type { Metadata } from 'next';
-import { Inter, Manrope } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({
+const geistSans = Geist({
   subsets: ['latin'],
-  variable: '--font-body',
-  display: 'swap',
+  variable: '--font-geist-sans',
 });
 
-const manrope = Manrope({
+const geistMono = Geist_Mono({
   subsets: ['latin'],
-  variable: '--font-heading',
-  display: 'swap',
+  variable: '--font-geist-mono',
 });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
-  title: 'MedRex | Your Complete Health Companion',
+  title: 'MedRex | Health At The Speed Of Clarity',
   description:
-    'MedRex brings consultations, records, AI support, reminders, mood tracking, and secure payments into one trusted health platform.',
-  keywords: ['MedRex', 'telemedicine', 'medical records', 'AI health assistant', 'health app'],
-  openGraph: {
-    title: 'MedRex | Your Complete Health Companion',
-    description: 'Care, records, and AI guidance in one calm, modern health experience.',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'MedRex | Your Complete Health Companion',
-    description: 'Care, records, and AI guidance in one calm, modern health experience.',
-  },
+    'MedRex unifies telemedicine, medical records, AI assistance, reminders, mood tracking, and secure payments into one futuristic health platform.',
 };
 
 export default function RootLayout({
@@ -37,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${manrope.variable}`} suppressHydrationWarning>
-      <body>{children}</body>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
+      <body className="antialiased site-body">{children}</body>
     </html>
   );
 }

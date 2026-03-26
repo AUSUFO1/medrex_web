@@ -1,35 +1,28 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Globe2, HeartHandshake, LockKeyhole, ShieldCheck, Sparkles, Stethoscope } from 'lucide-react';
+import { ArrowRightIcon, BuildingsIcon, GlobeHemisphereWestIcon, ShieldCheckIcon, SparkleIcon, UsersThreeIcon } from '@phosphor-icons/react/dist/ssr';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
-import { Reveal } from '@/components/ui/reveal';
-import { DashboardMockup } from './mockups';
+import { FAQSection } from '@/components/marketing/sections/FAQSection';
+import { aboutFAQs } from '@/components/marketing/content-data';
 
-const principles = [
+const points = [
   {
-    title: 'Care should feel reassuring',
-    copy: 'We design patient experiences that reduce stress, not add another complicated dashboard to someone already navigating health decisions.',
-    icon: HeartHandshake,
+    title: 'Patient calm first',
+    copy: 'We build interfaces that reduce stress at moments when users already carry enough complexity.',
+    icon: SparkleIcon,
   },
   {
-    title: 'Trust is a product feature',
-    copy: 'Security, permissions, and transparent health communication are built into MedRex from the first screen onward.',
-    icon: ShieldCheck,
+    title: 'Provider context always present',
+    copy: 'Records, visits, and summaries stay connected so health teams can move quickly with confidence.',
+    icon: UsersThreeIcon,
   },
   {
-    title: 'Technology should support clinicians',
-    copy: 'We use AI and automation to remove admin weight so providers can spend more time on real care.',
-    icon: Stethoscope,
+    title: 'Ready for scale',
+    copy: 'MedRex is positioned for clinics, distributed programs, and modern digital care products.',
+    icon: BuildingsIcon,
   },
-];
-
-const timeline = [
-  { year: '2023', title: 'Concept and clinical discovery', copy: 'Mapped patient pain points, provider workflows, and fragmented record experiences.' },
-  { year: '2024', title: 'Prototype and validation', copy: 'Tested consultation, AI summary, and reminder flows with real care operators.' },
-  { year: '2025', title: 'Platform consolidation', copy: 'Unified records, telemedicine, and payments into one coherent experience.' },
-  { year: '2026', title: 'Launch-ready brand system', copy: 'Prepared a premium, global-facing product experience for scale.' },
 ];
 
 export default function AboutPage() {
@@ -39,163 +32,61 @@ export default function AboutPage() {
       <main className="page-main">
         <section className="section">
           <div className="container">
-            <Reveal>
-              <span className="eyebrow">About MedRex</span>
-              <div className="mt-8 grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-                <div>
-                  <h1 className="text-[clamp(2.45rem,10vw,5.6rem)] font-semibold leading-[0.95]">
-                    Building a health platform that feels more like <span className="text-gradient">clarity</span> than complexity.
-                  </h1>
-                  <p className="mt-6 max-w-xl text-base leading-8 sm:text-lg">
-                    MedRex exists to make digital healthcare feel trustworthy, modern, and deeply usable for patients, providers, and care organizations.
-                  </p>
-                  <div className="mt-8 flex flex-wrap gap-3">
-                    <Link href="/#download" className="inline-flex items-center gap-2 rounded-full px-6 py-4 text-sm font-semibold text-white teal-purple shadow-[var(--shadow-lg)] hover:bg-[var(--color-primary-dark)]">
-                      Download App
-                      <ArrowRight size={16} />
-                    </Link>
-                    <Link href="/pricing" className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-4 text-sm font-semibold text-[var(--color-text)]">
-                      View Pricing
-                    </Link>
-                  </div>
+            <div className="grid-dots overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[#050506] p-6 text-white shadow-[var(--shadow-md)] sm:p-10">
+              <div className="relative z-10 mx-auto max-w-4xl">
+                <div className="eyebrow border-white/10 bg-white/5 text-white/70">About MedRex</div>
+                <h1 className="mt-7 text-[clamp(2.35rem,8.2vw,6rem)] font-medium leading-[0.95] tracking-[-0.07em] sm:mt-8">
+                  A health-tech brand built for the speed of modern care.
+                </h1>
+                <p className="mt-5 max-w-2xl text-sm leading-7 text-white/72 sm:mt-6 sm:text-lg sm:leading-8">
+                  MedRex is designed to feel futuristic without becoming cold, premium without becoming confusing, and mobile-first without sacrificing trust.
+                </p>
+                <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row">
+                  <Link href="/#download" className="brand-button brand-button-dark w-full sm:w-auto">
+                    Try MedRex
+                    <ArrowRightIcon size={16} />
+                  </Link>
+                  <Link href="/pricing" className="ghost-button w-full border-white/15 bg-white/5 text-white sm:w-auto">
+                    View plans
+                  </Link>
                 </div>
-
-                <DashboardMockup title="About the platform" caption="Brand, product, and trust story" />
               </div>
-            </Reveal>
+            </div>
           </div>
         </section>
 
-        <section id="why-medrex" className="section">
+        <section className="section">
           <div className="container">
-            <Reveal>
-              <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-                <div>
-                  <span className="eyebrow">Why MedRex</span>
-                  <h2 className="section-title mt-6 max-w-3xl">A premium digital care experience rooted in empathy, privacy, and speed.</h2>
+            <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
+              {points.map((point) => (
+                <div key={point.title} className="surface rounded-[1.7rem] p-6 sm:p-7">
+                  <point.icon size={22} weight="fill" className="text-[var(--brand)]" />
+                  <h2 className="mt-5 text-xl font-medium tracking-[-0.04em] sm:mt-6 sm:text-2xl">{point.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{point.copy}</p>
                 </div>
-                <p className="section-copy">
-                  The product language takes cues from premium consumer technology while staying grounded in clinical usefulness.
+              ))}
+            </div>
+
+            <div className="mt-6 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
+              <div className="surface rounded-[1.8rem] p-6 sm:p-7">
+                <GlobeHemisphereWestIcon size={24} weight="fill" className="text-[var(--brand)]" />
+                <h2 className="mt-5 text-2xl font-medium tracking-[-0.05em] sm:mt-6 sm:text-3xl">Global-ready by design</h2>
+                <p className="mt-3 text-sm leading-7 text-[var(--muted)] sm:mt-4 sm:text-base sm:leading-8">
+                  MedRex is shaped for distributed patients, modern operators, and care teams that need one fast, elegant surface across devices.
                 </p>
               </div>
-            </Reveal>
-
-            <div className="mt-12 grid gap-5 lg:grid-cols-3">
-              {principles.map((principle, index) => (
-                <Reveal key={principle.title} delay={index * 0.05}>
-                  <div className="surface-panel h-full rounded-[2rem] p-6">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-accent)] text-[var(--color-primary)]">
-                      <principle.icon size={22} />
-                    </div>
-                    <h3 className="mt-6 text-2xl font-semibold">{principle.title}</h3>
-                    <p className="mt-4 text-sm leading-7">{principle.copy}</p>
-                  </div>
-                </Reveal>
-              ))}
+              <div className="surface rounded-[1.8rem] p-6 sm:p-7">
+                <ShieldCheckIcon size={24} weight="fill" className="text-[var(--brand)]" />
+                <h2 className="mt-5 text-2xl font-medium tracking-[-0.05em] sm:mt-6 sm:text-3xl">Trust is not an afterthought</h2>
+                <p className="mt-3 text-sm leading-7 text-[var(--muted)] sm:mt-4 sm:text-base sm:leading-8">
+                  The product direction keeps privacy, record control, and clinical confidence visible in the interface rather than hidden in abstract marketing claims.
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="section">
-          <div className="container">
-            <Reveal>
-              <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-                <div>
-                  <span className="eyebrow">Global-ready care</span>
-                  <h2 className="mt-6 text-3xl font-semibold sm:text-4xl">Built for distributed patients, clinics, and modern health programs.</h2>
-                  <p className="mt-5 text-base leading-8">
-                    MedRex is designed for mobile-first care environments where people need timely answers, accessible records, and confidence that their information is protected.
-                  </p>
-                  <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                    <div className="rounded-[1.5rem] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-sm)]">
-                      <Globe2 size={18} className="text-[var(--color-secondary)]" />
-                      <p className="mt-3 font-semibold text-[var(--color-text)]">Cross-border friendly</p>
-                      <p className="mt-2 text-sm leading-7">Supports organizations serving patients across regions and time zones.</p>
-                    </div>
-                    <div className="rounded-[1.5rem] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-sm)]">
-                      <LockKeyhole size={18} className="text-[var(--color-primary)]" />
-                      <p className="mt-3 font-semibold text-[var(--color-text)]">Permission-aware</p>
-                      <p className="mt-2 text-sm leading-7">Makes it easier to share the right information with the right people at the right time.</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-[var(--shadow-md)]">
-                    <p className="text-sm uppercase tracking-[0.24em] text-[var(--color-primary)]">Operating belief</p>
-                    <p className="mt-6 text-2xl font-semibold sm:text-3xl">Health products should feel humane, not bureaucratic.</p>
-                    <div className="mt-8 grid gap-4">
-                      {[
-                        'Patient language first',
-                        'Provider-grade context in every workflow',
-                        'A calm interface for stressful moments',
-                        'AI that supports care teams instead of replacing them',
-                      ].map((item) => (
-                        <div key={item} className="rounded-[1.4rem] border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-4 text-sm text-[var(--color-text)]">
-                          {item}
-                        </div>
-                      ))}
-                    </div>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
-        <section className="section">
-          <div className="container">
-            <Reveal>
-              <span className="eyebrow">Journey so far</span>
-              <h2 className="section-title mt-6 max-w-3xl">A focused timeline from product idea to launch-ready system.</h2>
-            </Reveal>
-
-            <div className="mt-12 grid gap-5 lg:grid-cols-4">
-              {timeline.map((item, index) => (
-                <Reveal key={item.year} delay={index * 0.04}>
-                  <div className="surface-panel h-full rounded-[2rem] p-6">
-                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-primary)]">{item.year}</p>
-                    <h3 className="mt-5 text-xl font-semibold">{item.title}</h3>
-                    <p className="mt-4 text-sm leading-7">{item.copy}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="trust" className="section">
-          <div className="container">
-            <Reveal>
-              <div className="surface-panel rounded-[2.4rem] p-6 lg:p-10">
-                <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-                  <div>
-                    <span className="eyebrow">
-                      <Sparkles size={14} className="text-[var(--color-primary)]" />
-                      Trust and privacy
-                    </span>
-                    <h2 className="mt-6 text-3xl font-semibold sm:text-4xl">Designed to support privacy-first healthcare from day one.</h2>
-                    <p className="mt-5 text-base leading-8">
-                      Placeholder trust content below can be replaced with your exact compliance claims, legal posture, certifications, and infrastructure notes.
-                    </p>
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    {[
-                      'Role-based access controls',
-                      'Encrypted data flows',
-                      'Audit-ready care history',
-                      'Provider and caregiver sharing controls',
-                    ].map((item) => (
-                      <div key={item} className="rounded-[1.5rem] bg-[var(--color-background)] p-5">
-                        <p className="font-semibold text-[var(--color-text)]">{item}</p>
-                        <p className="mt-3 text-sm leading-7">
-                          Placeholder copy for your final compliance and platform security messaging.
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
+        <FAQSection title="About MedRex" faqs={aboutFAQs} />
       </main>
       <Footer />
     </div>

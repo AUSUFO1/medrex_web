@@ -22,6 +22,12 @@ export interface Testimonial {
   avatar: string;
 }
 
+// FAQ
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
 // Pricing
 export interface PricingPlan {
   id: string;
