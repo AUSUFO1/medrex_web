@@ -1,26 +1,29 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 
-const geistSans = Geist({
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-geist-sans',
+  variable: '--font-body',
+  display: 'swap',
 });
 
-const geistMono = Geist_Mono({
+const playfair = Playfair_Display({
   subsets: ['latin'],
-  variable: '--font-geist-mono',
+  variable: '--font-display',
+  display: 'swap',
 });
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
+  themeColor: '#07080d',
 };
 
 export const metadata: Metadata = {
-  title: 'MedRex | Health At The Speed Of Clarity',
+  title: 'MedRex | Health, Designed For Clarity',
   description:
-    'MedRex unifies telemedicine, medical records, AI assistance, reminders, mood tracking, and secure payments into one futuristic health platform.',
+    'MedRex brings telemedicine, records, AI support, reminders, mood tracking, and payments into one premium care experience.',
 };
 
 export default function RootLayout({
@@ -29,8 +32,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
-      <body className="antialiased site-body">{children}</body>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${playfair.variable} scroll-smooth`}
+    >
+      <body className="site-body antialiased">{children}</body>
     </html>
   );
 }

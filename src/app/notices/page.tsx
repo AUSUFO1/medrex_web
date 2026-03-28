@@ -31,11 +31,11 @@ export default function NoticesPage() {
     <div className="shell">
       <Navbar />
       <main className="page-main">
-        <section className="section">
+        <section className="section pt-6 sm:pt-8">
           <div className="container">
             <div className="mx-auto max-w-4xl">
-              <div className="eyebrow">Third Party Notices</div>
-              <h1 className="mt-6 text-[clamp(2.6rem,8vw,5rem)] font-medium leading-[0.95] tracking-[-0.06em]">
+              <div className="section-eyebrow">Third Party Notices</div>
+              <h1 className="mt-6 text-[clamp(2.6rem,8vw,5rem)] leading-[0.93] tracking-[-0.08em]">
                 Libraries and services used by MedRex.
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--muted)]">
@@ -45,13 +45,13 @@ export default function NoticesPage() {
 
             <div className="mx-auto mt-12 grid max-w-4xl gap-4">
               {notices.map((notice) => (
-                <div key={notice.title} className="surface rounded-[1.6rem] p-6">
-                  <h2 className="text-xl font-medium tracking-[-0.04em]">{notice.title}</h2>
+                <div key={notice.title} className="surface-card p-6">
+                  <h2 className="text-2xl leading-[0.95] tracking-[-0.06em]">{notice.title}</h2>
                   <p className="mt-4 text-sm leading-7 text-[var(--muted)]">{notice.body}</p>
                 </div>
               ))}
-              <div className="surface rounded-[1.6rem] p-6">
-                <Link href="/" className="text-sm font-medium text-[var(--foreground)] underline underline-offset-4">
+              <div className="surface-card p-6">
+                <Link href="/" className="button-secondary">
                   Back to home
                 </Link>
               </div>

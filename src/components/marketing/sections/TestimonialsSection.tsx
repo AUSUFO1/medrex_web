@@ -1,38 +1,49 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { StarIcon } from '@phosphor-icons/react/dist/ssr';
 import type { Testimonial } from '@/types';
 
 export function TestimonialsSection({ title, testimonials }: { title: string; testimonials: Testimonial[] }) {
+  const duplicated = [...testimonials, ...testimonials];
+
   return (
-    <section className="section">
+    <section className="section pt-0">
       <div className="container">
-        <div className="mx-auto mb-10 max-w-3xl text-center md:mb-16">
-          <h2 className="text-[clamp(1.9rem,6vw,4rem)] font-medium leading-[0.96] tracking-[-0.06em] text-[var(--foreground)]">
-            {title}
-          </h2>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: 'easeOut' }}
+          className="mb-8 max-w-3xl"
+        >
+          <div className="section-eyebrow">Proof</div>
+          <h2 className="section-title mt-6 text-[clamp(2.2rem,6vw,4.5rem)]">{title}</h2>
+        </motion.div>
 
-        <div className="grid justify-items-center gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="surface flex w-full max-w-[22rem] flex-col rounded-[1.6rem] p-6 sm:p-7"
-            >
-              <div className="mb-4 flex gap-1 text-amber-400">
-                {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <StarIcon key={i} size={16} weight="fill" />
-                ))}
+        <div className="quote-marquee">
+          <div className="quote-track">
+            {duplicated.map((testimonial, index) => (
+              <div
+                key={`${testimonial.id}-${index}`}
+                className="surface-card w-[18.75rem] shrink-0 p-5 sm:w-[21rem] sm:p-6"
+              >
+                <div className="mb-4 flex gap-1 text-[#f4c96c]">
+                  {Array.from({ length: testimonial.rating }).map((_, starIndex) => (
+                    <StarIcon key={starIndex} size={16} weight="fill" />
+                  ))}
+                </div>
+
+                <p className="text-sm leading-7 text-[var(--foreground)] sm:text-base sm:leading-8">
+                  &ldquo;{testimonial.content}&rdquo;
+                </p>
+
+                <div className="mt-6 border-t border-[var(--line)] pt-4">
+                  <p className="font-semibold">{testimonial.name}</p>
+                  <p className="mt-1 text-sm text-[var(--muted)]">{testimonial.role}</p>
+                </div>
               </div>
-
-              <p className="mb-6 flex-1 text-base leading-7 text-[var(--foreground)]">&ldquo;{testimonial.content}&rdquo;</p>
-
-              <div>
-                <p className="font-semibold text-[var(--foreground)]">{testimonial.name}</p>
-                <p className="mt-1 text-sm text-[var(--muted)]">{testimonial.role}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

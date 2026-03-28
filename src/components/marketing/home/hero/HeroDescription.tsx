@@ -2,8 +2,8 @@
 
 export default function HeroDescription() {
   return (
-    <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-[var(--hero-muted)] sm:mt-5 sm:text-xl sm:leading-8">
-      MedRex turns telemedicine, records, AI support, reminders, mood tracking, and payments into one clean mobile-first care experience.
+    <p className="mt-5 max-w-xl text-base leading-8 text-white/72 sm:text-lg">
+      MedRex brings telemedicine, records, AI guidance, reminders, mood tracking, and payments into one health-tech experience that still feels human.
     </p>
   );
 }

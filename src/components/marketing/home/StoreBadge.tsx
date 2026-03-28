@@ -6,17 +6,22 @@ type StoreBadgeProps = {
   icon: ElementType;
   label: string;
   caption: string;
+  inverse?: boolean;
 };
 
-export default function StoreBadge({ icon: Icon, label, caption }: StoreBadgeProps) {
+export default function StoreBadge({ icon: Icon, label, caption, inverse = false }: StoreBadgeProps) {
   return (
-    <div className="surface flex w-full items-center gap-3 rounded-[1.2rem] px-3 py-3 sm:w-auto sm:px-4">
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--foreground)] dark:text-[var(--brand)] sm:h-10 sm:w-10">
+    <div
+      className={`store-pill ${inverse ? 'border-white/10 bg-white/6 text-white shadow-none' : ''}`}
+    >
+      <div className={`store-pill-icon ${inverse ? 'bg-white/10 text-white' : ''}`}>
         <Icon size={18} weight="fill" />
       </div>
       <div className="min-w-0">
-        <p className="hidden text-[11px] uppercase tracking-[0.16em] text-[var(--muted)] sm:block">{caption}</p>
-        <p className="truncate text-sm font-medium leading-none sm:mt-0.5">{label}</p>
+        <p className={`text-[11px] uppercase tracking-[0.18em] ${inverse ? 'text-white/48' : 'text-[var(--muted)]'}`}>
+          {caption}
+        </p>
+        <p className="mt-1 truncate text-sm font-semibold leading-none">{label}</p>
       </div>
     </div>
   );

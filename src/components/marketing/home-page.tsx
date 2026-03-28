@@ -8,13 +8,15 @@ import FlowSection from '@/components/marketing/home/FlowSection';
 import Hero from '@/components/marketing/home/hero/Hero';
 import PlatformSection from '@/components/marketing/home/PlatformSection';
 import PricingPreviewSection from '@/components/marketing/home/PricingPreviewSection';
-import { TestimonialsSection } from '@/components/marketing/sections/TestimonialsSection';
 import { FAQSection } from '@/components/marketing/sections/FAQSection';
+import { TestimonialsSection } from '@/components/marketing/sections/TestimonialsSection';
 import {
-  homeUserTestimonials,
-  homeProfessionalTestimonials,
   homeFAQs,
+  homeProfessionalTestimonials,
+  homeUserTestimonials,
 } from '@/components/marketing/content-data';
+
+const homeTestimonials = [...homeUserTestimonials, ...homeProfessionalTestimonials];
 
 export default function HomePage() {
   return (
@@ -26,9 +28,8 @@ export default function HomePage() {
         <PlatformSection />
         <FlowSection />
         <PricingPreviewSection />
-        <TestimonialsSection title="What Patients Are Saying" testimonials={homeUserTestimonials} />
-        <TestimonialsSection title="What Providers Are Saying" testimonials={homeProfessionalTestimonials} />
-        <FAQSection title="Common Questions" faqs={homeFAQs} />
+        <TestimonialsSection title="Trusted by patients and modern care teams." testimonials={homeTestimonials} />
+        <FAQSection id="faq" title="Common questions about MedRex" faqs={homeFAQs} />
         <DownloadSection />
       </main>
       <Footer />

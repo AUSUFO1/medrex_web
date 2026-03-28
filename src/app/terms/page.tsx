@@ -36,11 +36,11 @@ export default function TermsPage() {
     <div className="shell">
       <Navbar />
       <main className="page-main">
-        <section className="section">
+        <section className="section pt-6 sm:pt-8">
           <div className="container">
             <div className="mx-auto max-w-4xl">
-              <div className="eyebrow">Terms of Use</div>
-              <h1 className="mt-6 text-[clamp(2.6rem,8vw,5rem)] font-medium leading-[0.95] tracking-[-0.06em]">
+              <div className="section-eyebrow">Terms of Use</div>
+              <h1 className="mt-6 text-[clamp(2.6rem,8vw,5rem)] leading-[0.93] tracking-[-0.08em]">
                 The rules for using MedRex responsibly.
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--muted)]">
@@ -50,18 +50,18 @@ export default function TermsPage() {
 
             <div className="mx-auto mt-12 grid max-w-4xl gap-4">
               {sections.map((section) => (
-                <div key={section.title} className="surface rounded-[1.6rem] p-6">
-                  <h2 className="text-xl font-medium tracking-[-0.04em]">{section.title}</h2>
+                <div key={section.title} className="surface-card p-6">
+                  <h2 className="text-2xl leading-[0.95] tracking-[-0.06em]">{section.title}</h2>
                   <p className="mt-4 text-sm leading-7 text-[var(--muted)]">{section.body}</p>
                 </div>
               ))}
-              <div className="surface rounded-[1.6rem] p-6">
-                <h2 className="text-xl font-medium tracking-[-0.04em]">Contact</h2>
+              <div className="surface-card p-6">
+                <h2 className="text-2xl leading-[0.95] tracking-[-0.06em]">Contact</h2>
                 <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
                   For legal questions, use your final business contact once the launch configuration is ready.
                 </p>
                 <div className="mt-6">
-                  <Link href="/" className="text-sm font-medium text-[var(--foreground)] underline underline-offset-4">
+                  <Link href="/" className="button-secondary">
                     Back to home
                   </Link>
                 </div>
